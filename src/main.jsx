@@ -3,17 +3,17 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import App from "./App.jsx";
 import Home from "./Home.jsx";
 
-import { ApiProvider } from "@reduxjs/toolkit/query/react";
-import { api } from "./apiSlice.js";
+import { Provider } from "react-redux";
 import "./index.css";
+import { store } from "./store.js";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: (
-      <ApiProvider api={api}>
+      <Provider store={store}>
         <App />
-      </ApiProvider>
+      </Provider>
     ),
     children: [
       {
