@@ -1,32 +1,14 @@
-import { useEffect, useState } from "react";
-import Task from "./TaskItem";
+import { useState } from "react";
 import { Link } from "react-router-dom";
+import Task from "./TaskItem";
+import { useGetTasksQuery } from "./apiSlice";
 
 export default function Home() {
-  const [tasksList, setTasksList] = useState([]);
   const [newTask, setNewTask] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
-  const [isError, setIsError] = useState(false);
-  const [error, setError] = useState(null);
 
   const BASE_URL = "http://localhost:3000";
+  const { data: tasksList, isError, isLoading, error } = useGetTasksQuery();
 
-  useEffect(() => {
-    setIsLoading(true);
-    getTasks().then(() => setIsLoading(false));
-  }, []);
-
-  const getTasks = async () => {
-    try {
-      const response = await fetch(`${BASE_URL}/tasks`);
-      const tasks = await response.json();
-      setTasksList(tasks.reverse());
-    } catch (err) {
-      setIsLoading(false);
-      setIsError(true);
-      setError(err);
-    }
-  };
 
   const addTask = async (task) => {
     await fetch(`${BASE_URL}/tasks`, {
@@ -36,7 +18,6 @@ export default function Home() {
       },
       body: JSON.stringify(task),
     });
-    getTasks();
   };
 
   const updateTask = async ({ id, ...updatedTask }) => {
@@ -47,14 +28,12 @@ export default function Home() {
       },
       body: JSON.stringify(updatedTask),
     });
-    getTasks();
   };
 
   const deleteTask = async (id) => {
     await fetch(`${BASE_URL}/tasks/${id}`, {
       method: "DELETE",
     });
-    getTasks();
   };
 
   return (
@@ -75,7 +54,7 @@ export default function Home() {
               d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"
             />
           </svg>
-          <h4 className="ml-3 text-lg font-semibold">My Tasks</h4>
+          <h4 className="ml-3 text-lg font-semibold">My Daily Goals</h4>
         </div>
         <form
           onSubmit={(e) => {
@@ -132,7 +111,9 @@ export default function Home() {
           )}
         </div>
       </div>
-      <Link to="contact" className="text-gray-800 hover:text-gray-400 absolute">Contact</Link>
+      <Link to="contact" className="text-gray-800 hover:text-gray-400 absolute">
+        Contact
+      </Link>
     </div>
   );
 }
