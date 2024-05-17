@@ -1,40 +1,18 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import Task from "./TaskItem";
-import { useGetTasksQuery } from "./apiSlice";
+import { useAddTaskMutation, useDeleteTaskMutation, useGetTasksQuery, useUpdateTaskMutation } from "./apiSlice";
 
 export default function Home() {
   const [newTask, setNewTask] = useState("");
 
   const BASE_URL = "http://localhost:3000";
-  const { data: tasksList, isError, isLoading, error } = useGetTasksQuery();
+  const { data: tasksList, isError, isLoading, error} = useGetTasksQuery();
 
+  const [addTask] = useAddTaskMutation();
+  const [updateTask] = useUpdateTaskMutation();
+  const [deleteTask] = useDeleteTaskMutation();
 
-  const addTask = async (task) => {
-    await fetch(`${BASE_URL}/tasks`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(task),
-    });
-  };
-
-  const updateTask = async ({ id, ...updatedTask }) => {
-    await fetch(`${BASE_URL}/tasks/${id}`, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(updatedTask),
-    });
-  };
-
-  const deleteTask = async (id) => {
-    await fetch(`${BASE_URL}/tasks/${id}`, {
-      method: "DELETE",
-    });
-  };
 
   return (
     <div className="flex h-screen flex-grow items-start justify-center bg-gray-900 p-4">
@@ -97,7 +75,7 @@ export default function Home() {
             <p className="text-center">Loading...</p>
           ) : isError ? (
             <p className="text-center">
-              {error.message || "Something went wrong"}
+              {error.error || "Something went wrong"}
             </p>
           ) : (
             tasksList.map((task) => (
