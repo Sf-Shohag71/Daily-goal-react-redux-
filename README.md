@@ -1,8 +1,12 @@
-# React + Vite
+# Mission24
+Mission24 is a fully responsive to-do list application built with ReactJS. It utilizes ReduxJS for efficient state management, ensuring your tasks stay organized and accessible across all devices. TailwindCSS provides a utility-first approach to styling, making the UI clean, customizable, and easy to maintain.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+****Run Project**
+-> **Client side:** Go to terminal and run -> npm run dev
+-> **Server side:** From terminal -> npm run json-server
 
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+****Technology used**
+-> Reactjs
+-> Reduxjs (RTK query)
+-> Tailwind CSS
+-> React router dom
