@@ -5,13 +5,62 @@ import { useAddTaskMutation, useDeleteTaskMutation, useGetTasksQuery, useUpdateT
 
 export default function Home() {
   const [newTask, setNewTask] = useState("");
+  // const [tasksList, setTasksList] = useState([]);
+  // const [isLoading, setIsLoading] = useState(false);
+  // const [isError, setIsError] = useState(false);
+  // const [error, setError] = useState(null);
 
-  const BASE_URL = "http://localhost:3000";
+  // const BASE_URL = "http://localhost:3000";
+
+  // useEffect(() => {
+  //   setIsLoading(true);
+  //   getTasks().then(() => setIsLoading(false));
+  // }, []);
+
   const { data: tasksList, isError, isLoading, error} = useGetTasksQuery();
+  // const getTasks = async () => {
+  //   try {
+  //     const response = await fetch(`${BASE_URL}/tasks`);
+  //     const tasks = await response.json();
+  //     setTasksList(tasks.reverse());
+  //   } catch (err) {
+  //     setIsLoading(false);
+  //     setIsError(true);
+  //     setError(err);
+  //   }
+  // };
 
   const [addTask] = useAddTaskMutation();
+  // const addTask = async (task) => {
+  //   await fetch(`${BASE_URL}/tasks`, {
+  //     method: "POST",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //     body: JSON.stringify(task),
+  //   });
+  //   getTasks();
+  // };
+  
   const [updateTask] = useUpdateTaskMutation();
+  // const updateTask = async ({ id, ...updatedTask }) => {
+  //   await fetch(`${BASE_URL}/tasks/${id}`, {
+  //     method: "PATCH",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //     body: JSON.stringify(updatedTask),
+  //   });
+  //   getTasks();
+  // };
+  
   const [deleteTask] = useDeleteTaskMutation();
+  // const deleteTask = async (id) => {
+  //   await fetch(`${BASE_URL}/tasks/${id}`, {
+  //     method: "DELETE",
+  //   });
+  //   getTasks();
+  // };
 
 
   return (
